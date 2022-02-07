@@ -30,10 +30,12 @@ class UserController extends AbstractController {
                 </tr>
             </table>
         ';
-        return new Response($message);
+
+        return $this->render('user.html.twig', [
+            'user' => $message,
+        ]);
         // TODO Retournez une Response, renvoyer le code HTML présent dans la variable $message.
     }
-
 
     /**
      * Cette méthode édite un utilisateur en particulier, elle devra prendre un paramètre supplémentaire pour accéder à l'utilisateur en question.
@@ -46,10 +48,11 @@ class UserController extends AbstractController {
         $html = '
             <div class="success">L\'utilisateur ' . $userID . ' a été modifié avec succès</div>
         ';
-        return new Response($html);
+        return $this->render('user.html.twig', [
+            'user' => $html,
+        ]);
         // TODO Retournez une Response contenant le code HTML spécifié dans la variable $html
     }
-
 
     /**
      * Cette méthode supprime un utilisateur, elle prend un paramètre supplémentaire qui doit ABSOLUMENT être un entier, j'attend une regex pour celui ci !!!!!
@@ -62,8 +65,9 @@ class UserController extends AbstractController {
         $html = '
             <div class="success">L\'utilisateur ' . $userID . ' a été supprimé avec succès</div>
         ';
-        return new Response($html);
+        return $this->render('user.html.twig', [
+            'user' => $html,
+        ]);
         // TODO Retournez une Response contenant le code HTML spécifié dans la variable $html
     }
-
 }
