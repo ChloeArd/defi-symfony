@@ -41,7 +41,7 @@ class UserController extends AbstractController {
      * @return Response
      * TODO Définissez cette route, n'oubliez pas de définir le paramètre pour être en mesure d'éditer l'utilisateur.
      */
-    #[Route('/edit/{userId}', 'edit')]
+    #[Route('/edit/{userID}', 'edit')]
     public function edit(int $userID): Response {
         $html = '
             <div class="success">L\'utilisateur ' . $userID . ' a été modifié avec succès</div>
