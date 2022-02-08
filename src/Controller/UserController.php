@@ -31,7 +31,7 @@ class UserController extends AbstractController {
             </table>
         ';
 
-        return $this->render('user.html.twig', [
+        return $this->render('user/user.html.twig', [
             'user' => $message,
         ]);
         // TODO Retournez une Response, renvoyer le code HTML présent dans la variable $message.
@@ -48,7 +48,7 @@ class UserController extends AbstractController {
         $html = '
             <div class="success">L\'utilisateur ' . $userID . ' a été modifié avec succès</div>
         ';
-        return $this->render('user.html.twig', [
+        return $this->render('user/edit.html.twig', [
             'user' => $html,
         ]);
         // TODO Retournez une Response contenant le code HTML spécifié dans la variable $html
@@ -65,7 +65,7 @@ class UserController extends AbstractController {
         $html = '
             <div class="success">L\'utilisateur ' . $userID . ' a été supprimé avec succès</div>
         ';
-        return $this->render('user.html.twig', [
+        return $this->render('user/delete.html.twig', [
             'user' => $html,
         ]);
         // TODO Retournez une Response contenant le code HTML spécifié dans la variable $html
