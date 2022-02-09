@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class KernelEventSubscriber implements EventSubscriberInterface {
@@ -25,14 +26,22 @@ class KernelEventSubscriber implements EventSubscriberInterface {
      */
     public static function getSubscribedEvents(): array {
         return[
-          /*KernelEvents::REQUEST => [
-              [KernelRequestListener::class, 0]
-          ],*/
+          KernelEvents::REQUEST => [
+              ["displayKernelRequestTriggered", 0]
+          ],
             KernelEvents::EXCEPTION => [
-                ["displayKernelExceptionTriggered", 255],
-                ["logKernelExceptionTriggered", 1],
+                ["logKernelExceptionTriggered", 255],
+                ["displayKernelExceptionTriggered", 1],
             ]
         ];
+    }
+
+    public function displayKernelRequestTriggered(RequestEvent $event) {
+        if ($event->getRequest()->getMethod() !== "POST") {
+            $response = new Response(null, 403);
+            //$response->setContent("<h1>Type de requête non autorisée par le kernel </h1>");
+            $event->setResponse($response);
+        }
     }
 
     /**
@@ -41,7 +50,7 @@ class KernelEventSubscriber implements EventSubscriberInterface {
      */
     public function displayKernelExceptionTriggered(ExceptionEvent $event) {
         if ($event->getRequest()->getMethod() !== "POST") {
-            $response = new Response(null, 403);
+            $response = new Response(null, 404);
             $event->setResponse($response);
         }
     }
@@ -52,7 +61,7 @@ class KernelEventSubscriber implements EventSubscriberInterface {
      */
     public function logKernelExceptionTriggered(ExceptionEvent $event) {
         $message = $event->getThrowable()->getMessage();
-        file_put_contents(__DIR__ . "test.log", $message, FILE_APPEND);
+        file_put_contents(__DIR__ . "/../../var/log/test.log", "$message\n", FILE_APPEND);
         $this->logger->error("Exception {kernel.exception::logKernelExceptionTriggered()}", ['Request from' => $message]);
     }
 }
