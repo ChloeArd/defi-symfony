@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber;
 
-use App\EventListener\KernelRequestListener;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
