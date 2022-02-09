@@ -15,11 +15,7 @@ class KernelRequestListener {
         if ($event->getRequest()->getMethod() !== "POST") {
             $response = new Response();
             //$response->setContent("<h1>Type de requête non autorisée par le kernel </h1>");
-            $response->setContent("
-                <h1>Accès interdit - Erreur 403</h1>
-                <p>Vous n'avez pas la permission d'accès à la page ou à la resource</p>
-            ");
-            $event->setResponse($response);
+            $event->setResponse(new Response(null, 403));
         }
     }
 }
