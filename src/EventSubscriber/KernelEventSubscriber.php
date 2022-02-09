@@ -39,7 +39,6 @@ class KernelEventSubscriber implements EventSubscriberInterface {
     public function displayKernelRequestTriggered(RequestEvent $event) {
         if ($event->getRequest()->getMethod() !== "POST") {
             $response = new Response(null, 403);
-            //$response->setContent("<h1>Type de requête non autorisée par le kernel </h1>");
             $event->setResponse($response);
         }
     }
