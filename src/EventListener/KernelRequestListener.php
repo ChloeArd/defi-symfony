@@ -13,9 +13,9 @@ class KernelRequestListener {
      */
     public function onKernelRequest(RequestEvent $event) {
         if ($event->getRequest()->getMethod() !== "POST") {
-            $response = new Response();
+            $response = new Response(null, 403);
             //$response->setContent("<h1>Type de requête non autorisée par le kernel </h1>");
-            $event->setResponse(new Response(null, 403));
+            $event->setResponse($response);
         }
     }
 }
